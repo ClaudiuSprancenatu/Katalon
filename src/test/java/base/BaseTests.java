@@ -20,8 +20,8 @@ public class BaseTests {
         pages = new PageObjectManager(driver);
     }
 
-//    @AfterMethod
-//    public void TearDown(){
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void TearDown(){
+        driver.quit();
+    }
 }

@@ -1,7 +1,6 @@
 package framework;
 
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -140,23 +139,27 @@ public class BasePage {
         List<Integer> addedNumbers = new ArrayList<>();
         while (true) {
             Random random = new Random();
-            int nr = random.nextInt(6);
+            int nr = random.nextInt(5);
             if (!addedNumbers.contains(nr)) {
                 elements.get(nr).click();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
                 addedNumbers.add(nr);
             }
             if (addedNumbers.size() == 4){
                 break;
             }
         }
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+
+
+        //return addedNumbers.size();
+
     }
 
-    public void searchTheLowestPrice() {
+    public void removeTheLowestPrice() {
         List<WebElement> elements = driver.findElements(By.className("woocommerce-cart-form__cart-item"));
         float min = Float.MAX_VALUE;
         WebElement minElement = null;
@@ -169,5 +172,12 @@ public class BasePage {
                 }
         }
         minElement.click();
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+//        List<WebElement> remainingItems = driver.findElements(By.className("woocommerce-cart-form__cart-item"));
+//        return remainingItems.size();
     }
 }
