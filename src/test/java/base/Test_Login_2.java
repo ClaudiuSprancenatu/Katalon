@@ -31,7 +31,7 @@ public class Test_Login_2 extends BaseTests {
 
     @Test
     public void validateLoginInBuingProcess(){
-        homePage.open().SearchProduct("Marco Lightweight Active Hoodie");
+//        homePage.open().SearchProduct("Marco Lightweight Active Hoodie");
         productPage.selectSizeAndColor();
         productPage.clickOnShoppingCart();
         shoppingCartPage.clickToCheckout();

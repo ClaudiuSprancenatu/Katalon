@@ -14,22 +14,11 @@ public class HomePage {
     }
 
     public HomePage open (){
-        browser.visit("https://magento.nublue.co.uk/");
+        browser.visit("https://cms.demo.katalon.com/");
         return this;
     }
 
-    public LoginPage clickSignInLink(){
-        browser.clickLink("Sign In");
-        return new LoginPage(browser);
-    }
-
-    public String ValidateLogin(){
-        browser.waitForElement(welcome);
-        return browser.getMessage(welcome);
-    }
-
-    public void SearchProduct(String text){
-        browser.search(text, search);
+    public void clickLinkText (String text){
         browser.clickLink(text);
     }
 
@@ -38,4 +27,11 @@ public class HomePage {
         return new RegisterPage(browser);
     }
 
+    public void addCart (){
+        browser.addToCart();
+    }
+
+    public void searchTheLowestPrice() {
+        browser.searchTheLowestPrice();
+    }
 }

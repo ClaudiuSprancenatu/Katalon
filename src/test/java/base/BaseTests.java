@@ -13,15 +13,15 @@ public class BaseTests {
 
     @BeforeMethod
     public void SetUp(){
-        System.setProperty("baseUrl","https://magento.nublue.co.uk/");
+        System.setProperty("baseUrl","https://cms.demo.katalon.com/");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         pages = new PageObjectManager(driver);
     }
 
-    @AfterMethod
-    public void TearDown(){
-        driver.quit();
-    }
+//    @AfterMethod
+//    public void TearDown(){
+//        driver.quit();
+//    }
 }

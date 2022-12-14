@@ -1,9 +1,14 @@
 package framework;
 
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class BasePage {
 
@@ -11,12 +16,13 @@ public class BasePage {
     private Integer timeout = 10; // number of tries
     private int waitPerTry = 500; // milliseconds to wait on each try
 
-    public BasePage(WebDriver driver){
+    public BasePage(WebDriver driver) {
         this.driver = driver;
     }
+
     private String baseUrl = System.getProperty("baseUrl", "System baseUrl is not defined");
 
-    public void visit(String url){
+    public void visit(String url) {
         System.out.println("Navigating to: " + url);
         if (!url.contains("http")) {
             url = baseUrl + url;
@@ -25,7 +31,7 @@ public class BasePage {
         driver.get(url);
     }
 
-    public void clickLink(String text){
+    public void clickLink(String text) {
         waitForThePageToBeLoaded();
         driver.findElement(By.linkText(text)).click();
     }
@@ -38,7 +44,7 @@ public class BasePage {
         }
     }
 
-    public String getMessage(By selector){
+    public String getMessage(By selector) {
 
         return driver.findElement(selector).getText();
     }
@@ -46,12 +52,12 @@ public class BasePage {
     public void typeIn(String text, By selector) {
         waitUntilIsVisible(selector);
         waitForThePageToBeLoaded();
-        find(selector).sendKeys(Keys.HOME,Keys.chord(Keys.SHIFT,Keys.END));
+        find(selector).sendKeys(Keys.HOME, Keys.chord(Keys.SHIFT, Keys.END));
         find(selector).clear();
         find(selector).sendKeys(text);
     }
 
-    public void search(String text, By selector){
+    public void search(String text, By selector) {
         find(selector).sendKeys(text);
         find(selector).submit();
     }
@@ -83,7 +89,7 @@ public class BasePage {
     }
 
 
-    public WebElement waitUntilIsClickable(By element){
+    public WebElement waitUntilIsClickable(By element) {
         try {
             waitFor(ExpectedConditions.elementToBeClickable(find(element)), timeout);
         } catch (Exception e) {
@@ -129,4 +135,39 @@ public class BasePage {
                 selector, timeout) + "\r\n" + stacktrace);
     }
 
+    public void addToCart () {
+        List<WebElement> elements = driver.findElements(By.cssSelector("[data-product_id]"));
+        List<Integer> addedNumbers = new ArrayList<>();
+        while (true) {
+            Random random = new Random();
+            int nr = random.nextInt(6);
+            if (!addedNumbers.contains(nr)) {
+                elements.get(nr).click();
+                addedNumbers.add(nr);
+            }
+            if (addedNumbers.size() == 4){
+                break;
+            }
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public void searchTheLowestPrice() {
+        List<WebElement> elements = driver.findElements(By.className("woocommerce-cart-form__cart-item"));
+        float min = Float.MAX_VALUE;
+        WebElement minElement = null;
+        for (int i = 0; i < elements.size(); i++){
+                var priceText = elements.get(i).findElement(By.className("product-subtotal")).getText();
+                float price = Float.parseFloat(priceText.substring(1));
+                if (price < min){
+                    min = price;
+                    minElement = elements.get(i).findElement(By.className("remove"));
+                }
+        }
+        minElement.click();
+    }
 }

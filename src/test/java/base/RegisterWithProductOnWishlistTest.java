@@ -25,11 +25,10 @@ public class RegisterWithProductOnWishlistTest extends BaseTests{
 
     @Test
     public void testRegisterWithProductOnWishlist(){
-        homePage.open().SearchProduct("Marco Lightweight Active Hoodie");
-        productPage.clickWishList();
-        customerLoginPage.clickOnCreateAnAccount();
-        registerPage.createNewUser("Dinu", "Marian", "as237fdfjk@yahoo.com", "qwerty12345D", "qwerty12345D");
-        assertTrue(userPage.verifyUserIsCreated().contains("Thank you for registering with Main Website Store."), "The message is not correct!");
+        homePage.open();
+        homePage.addCart();
+        homePage.clickLinkText("CART");
+        homePage.searchTheLowestPrice();
     }
 
 }

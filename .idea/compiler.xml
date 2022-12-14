@@ -7,6 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="Magento_LUMA" />
+        <module name="LUMA" />
       </profile>
     </annotationProcessing>
   </component>
