@@ -6,8 +6,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
+
+import static java.lang.Float.parseFloat;
 
 public class BasePage {
 
@@ -134,8 +138,8 @@ public class BasePage {
                 selector, timeout) + "\r\n" + stacktrace);
     }
 
-    public void addToCart () {
-        List<WebElement> elements = driver.findElements(By.cssSelector("[data-product_id]"));
+    public void addToCart() {
+        List<WebElement> elements = driver.findElements(By.xpath("//a[text()='Add to cart']"));
         List<Integer> addedNumbers = new ArrayList<>();
         while (true) {
             Random random = new Random();
@@ -149,35 +153,38 @@ public class BasePage {
                 }
                 addedNumbers.add(nr);
             }
-            if (addedNumbers.size() == 4){
+            if (addedNumbers.size() == 4) {
                 break;
             }
         }
-
-
-        //return addedNumbers.size();
-
     }
 
     public void removeTheLowestPrice() {
         List<WebElement> elements = driver.findElements(By.className("woocommerce-cart-form__cart-item"));
         float min = Float.MAX_VALUE;
         WebElement minElement = null;
-        for (int i = 0; i < elements.size(); i++){
-                var priceText = elements.get(i).findElement(By.className("product-subtotal")).getText();
-                float price = Float.parseFloat(priceText.substring(1));
-                if (price < min){
-                    min = price;
-                    minElement = elements.get(i).findElement(By.className("remove"));
-                }
+        for (int i = 0; i < elements.size(); i++) {
+            var priceText = elements.get(i).findElement(By.className("product-subtotal")).getText();
+            float price = parseFloat(priceText.substring(1));
+            if (price < min) {
+                min = price;
+                minElement = elements.get(i).findElement(By.className("remove"));
+            }
         }
         minElement.click();
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
+    }
+
+    public void removeTheMaximPrice() {
+        List<WebElement> elements = driver.findElements(By.xpath("//td[@class='product-subtotal']"));
+        WebElement elementToRemove = null;
+        for(int i = 0; i < elements.size(); i++) {
+            String entirePrice = elements.get(i).getText();
+            String priceText = entirePrice.substring(1);
+            float price = parseFloat(priceText);
+            if (price >= Float.MIN_VALUE) {
+                 elementToRemove = elements.get(i).findElement(By.xpath("//a[@class='remove']"));
+            }
         }
-//        List<WebElement> remainingItems = driver.findElements(By.className("woocommerce-cart-form__cart-item"));
-//        return remainingItems.size();
+        elementToRemove.click();
     }
 }

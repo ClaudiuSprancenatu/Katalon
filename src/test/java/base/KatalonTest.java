@@ -20,10 +20,9 @@ public class KatalonTest extends BaseTests{
     public void testKatalon(){
         homePage.open();
         homePage.addCart();
-        //assertEquals(addedItems, 4);
         homePage.clickLinkText("CART");
-        homePage.removeTheLowestPrice();
-        //assertEquals(remainingItems, 3);
+        homePage.removeTheMaximPrice();
+//        homePage.removeTheLowestPrice();
     }
 
 }

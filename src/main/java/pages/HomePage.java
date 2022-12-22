@@ -26,4 +26,7 @@ public class HomePage {
     public void removeTheLowestPrice() {
         browser.removeTheLowestPrice();
     }
+    public void removeTheMaximPrice() {
+        browser.removeTheMaximPrice();
+    }
 }
