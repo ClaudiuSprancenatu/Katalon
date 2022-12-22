@@ -12,16 +12,16 @@ public class BaseTests {
     public PageObjectManager pages;
 
     @BeforeMethod
-    public void SetUp(){
-        System.setProperty("baseUrl","https://cms.demo.katalon.com/");
+    public void SetUp() {
+        System.setProperty("baseUrl", "https://cms.demo.katalon.com/");
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
         pages = new PageObjectManager(driver);
     }
 
-//    @AfterMethod
-//    public void TearDown(){
-//        driver.quit();
-//    }
+    @AfterMethod
+    public void TearDown() {
+        driver.quit();
+    }
 }

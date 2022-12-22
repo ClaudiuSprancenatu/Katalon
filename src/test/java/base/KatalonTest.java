@@ -7,17 +7,17 @@ import pages.*;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
-public class KatalonTest extends BaseTests{
+public class KatalonTest extends BaseTests {
 
     private HomePage homePage;
 
     @BeforeMethod
-    public void setPages(){
+    public void setPages() {
         homePage = pages.getHomePage();
     }
 
     @Test
-    public void testKatalon(){
+    public void testKatalon() {
         homePage.open();
         homePage.addCart();
         homePage.clickLinkText("CART");

@@ -8,11 +8,11 @@ public class PageObjectManager {
     private BasePage basePage;
     private HomePage homePage;
 
-    public PageObjectManager(WebDriver driver){
+    public PageObjectManager(WebDriver driver) {
         basePage = new BasePage(driver);
     }
 
-    public HomePage getHomePage(){
+    public HomePage getHomePage() {
         return (homePage == null) ? homePage = new HomePage(basePage) : homePage;
     }
 

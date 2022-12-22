@@ -6,26 +6,27 @@ public class HomePage {
 
     private BasePage browser;
 
-    public HomePage(BasePage browser){
+    public HomePage(BasePage browser) {
         this.browser = browser;
     }
 
-    public HomePage open (){
+    public HomePage open() {
         browser.visit("https://cms.demo.katalon.com/");
         return this;
     }
 
-    public void clickLinkText (String text){
+    public void clickLinkText(String text) {
         browser.clickLink(text);
     }
 
-    public void addCart (){
+    public void addCart() {
         browser.addToCart();
     }
 
     public void removeTheLowestPrice() {
         browser.removeTheLowestPrice();
     }
+
     public void removeTheMaximPrice() {
         browser.removeTheMaximPrice();
     }

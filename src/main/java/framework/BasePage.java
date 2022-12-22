@@ -177,12 +177,12 @@ public class BasePage {
     public void removeTheMaximPrice() {
         List<WebElement> elements = driver.findElements(By.xpath("//td[@class='product-subtotal']"));
         WebElement elementToRemove = null;
-        for(int i = 0; i < elements.size(); i++) {
+        for (int i = 0; i < elements.size(); i++) {
             String entirePrice = elements.get(i).getText();
             String priceText = entirePrice.substring(1);
             float price = parseFloat(priceText);
             if (price >= Float.MIN_VALUE) {
-                 elementToRemove = elements.get(i).findElement(By.xpath("//a[@class='remove']"));
+                elementToRemove = elements.get(i).findElement(By.xpath("//a[@class='remove']"));
             }
         }
         elementToRemove.click();
