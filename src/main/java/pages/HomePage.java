@@ -15,19 +15,11 @@ public class HomePage {
         return this;
     }
 
-    public void clickLinkText(String text) {
-        browser.clickLink(text);
+    public void clickToCart() {
+        browser.clickToCart();
     }
 
-    public void addCart() {
-        browser.addToCart();
-    }
-
-    public void removeTheLowestPrice() {
-        browser.removeTheLowestPrice();
-    }
-
-    public void removeTheMaximPrice() {
-        browser.removeTheMaximPrice();
+    public void clickToSamplePage() {
+        browser.clickToSamplePage();
     }
 }
